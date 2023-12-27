@@ -9,20 +9,20 @@ The program will run if-elif-else statements to filter through the users inputs,
     to output the calculation chosen.
 """
 
+
 print('''Investment - to calculate the amount of interest you'll earn on your investment
       Bond - to calculate the amount you'll have to pay on a home loan''')
 interest_type = ""
-
+# Initial menu choice to start the program
 while interest_type != "investment" and interest_type != "bond":
     interest_type = input(
         "Enter either 'investment' or 'bond' from the menu above to proceed: ").lower()
 
-
+# If statement to take user to the investment inputs and calculations
 if interest_type == "investment":
-    # input validation added:
-    # removed zero division error on input - add to calculation, and use conditional statements to not enter a value below 1
+
     while True:
-        try: 
+        try:
             deposit = float(input(
                 """Please enter the amount of money you would like to deposit: """))
             if deposit < 1:
@@ -36,13 +36,14 @@ if interest_type == "investment":
     while True:
         try:
             interest_rate = float(input(
-            "Please enter the interest rate percentage (Do not enter the '%' sign): "))
+                "Please enter the interest rate percentage (Do not enter the '%' sign): "))
             if interest_rate < 1:
                 print("Value must be greater than 0")
-                continue           
+                continue
         except ValueError:
             print("Input must be a number, please enter again")
             continue
+        # dividing by 100 here to be used in the end calculation
         interest_rate = interest_rate / 100
         break
 
@@ -54,29 +55,32 @@ if interest_type == "investment":
                 print("Value must be greater than 0")
                 continue
         except ValueError:
-            print("Number of years must be enterered as a number")  
-            continue   
+            print("Number of years must be enterered as a number")
+            continue
         break
-
+    # Asking for user input here to determine if the simple or compound interest calculation is used
     interest = ""
     while interest != "simple" and interest != "compound":
         interest = input(
             "Please choose an interest type 'Simple' or 'Compound': ").lower()
 
     if interest == "simple":
-        
+        # Simple interest calculation for investment choice
         total_simple = deposit * (1 + interest_rate * investment_years)
-        print(f"You will have £{round(total_simple, 2)} in your account")      
+        print(f"You will have £{round(total_simple, 2)} in your account")
+
+        # Compound interest calculation for investment choice
     else:
         total_compound = deposit * \
-        math.pow((1 + interest_rate), investment_years)
+            math.pow((1 + interest_rate), investment_years)
         print(f"You will have £{round(total_compound, 2)} in your account")
 
-
+# Elif statement to ask the user for inputs for the bond calculation
 elif interest_type == "bond":
     while True:
         try:
-            house_value = int(input("Please enter the current value of your house: "))
+            house_value = int(
+                input("Please enter the current value of your house: "))
             if house_value < 1:
                 print("Houes Value must be greater than 0")
                 continue
@@ -85,22 +89,21 @@ elif interest_type == "bond":
             continue
         break
 
-
     while True:
-        try:    
+        try:
             bond_interest = float(
-                input("What is the interest rate? (Do not enter the '%' sign): ")) 
+                input("What is the interest rate? (Do not enter the '%' sign): "))
             if bond_interest < 1:
                 print("Value must be greater than 0")
-                continue            
+                continue
         except ValueError:
             print("Input must be a number, please enter again")
             continue
+        # dividing these variables so they can be used in the calculation at the end
         bond_interest = bond_interest / 100
         monthly_interest = bond_interest / 12
         break
 
-    
     while True:
         try:
             bond_months = int(
@@ -112,6 +115,7 @@ elif interest_type == "bond":
             print("Value must be greater than 0")
             continue
         break
+    # Bond calculation to output the users monthly payments
     try:
         repayment = (monthly_interest * house_value) / \
             (1-(1 + monthly_interest) ** (- bond_months))
@@ -119,7 +123,7 @@ elif interest_type == "bond":
     except ValueError:
         print("Error, you cannot divide by Zero, please check your inputs")
     except ZeroDivisionError:
-        print("An error has occured, you cannot divide by Zero")    
-        
+        print("An error has occured, you cannot divide by Zero")
+
 else:
     print("Incorrect option, please try again")
