@@ -1,5 +1,5 @@
 # Imports
-from Investment_class import Calculator
+from calculator_class import InvestmentCalculator, BondCalculator
 
 # Global Variables
 menu = "\nPlease select from the following options:\n"
@@ -24,6 +24,7 @@ def investment_inputs():
     deposit = 0
     interest_rate = 0
     years = 0
+
     calc_data = [deposit, interest_rate, years]
     counter = 0
 
@@ -44,7 +45,7 @@ def investment_inputs():
             print("Your input must be a number and greater than 0")
             continue
 
-    return Calculator(calc_data[0], calc_data[1], calc_data[2])
+    return InvestmentCalculator(calc_data[0], calc_data[1], calc_data[2])
 
 
 def bond_inputs():
@@ -82,7 +83,7 @@ def bond_inputs():
             print("Your input must be a number and greater than 0")
             continue
 
-    return Calculator(calc_data[0], calc_data[1], months=calc_data[2])
+    return BondCalculator(calc_data[0], calc_data[1], months=calc_data[2])
 
 
 # ------------ Main ------------#
